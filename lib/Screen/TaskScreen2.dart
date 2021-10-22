@@ -1,0 +1,135 @@
+// ignore_for_file: file_names
+
+
+
+import 'package:flutter/material.dart';
+import 'package:telework_v2/Models/TaskModel.dart';
+
+class TaskScreen2 extends StatefulWidget {
+  const TaskScreen2({Key? key}) : super(key: key);
+
+  @override
+  _TaskScreen2State createState() => _TaskScreen2State();
+}
+
+class _TaskScreen2State extends State<TaskScreen2> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("title2"),
+      ),
+       bottomNavigationBar:BottomNavigationBar( items:  const <BottomNavigationBarItem>[
+                    BottomNavigationBarItem(
+                        icon: Icon(Icons.home),
+                        label: 'Home',
+                    ),
+                    BottomNavigationBarItem(
+                        icon: Icon(Icons.task),
+                        label: 'About',
+                    ),
+                    BottomNavigationBarItem(
+                        icon: Icon(Icons.access_alarm),
+                        label: 'Profile',
+                    ),
+                ],
+                currentIndex: 1,
+                // onTap: _onItemTapped, 
+                
+                
+                ),
+    body:      ListView.builder(
+        scrollDirection: Axis.vertical,
+        itemCount: _listTaskModel.length,
+        itemBuilder: (BuildContext context, int index){
+
+
+
+          return TaskWidget( taskName:_listTaskModel[index].task  ,
+          subTask:_listTaskModel[index].subTask  ,
+          id :_listTaskModel[index].id ,  
+          
+          );
+        },
+
+      )
+    );
+  }
+}
+
+class TaskWidget extends StatelessWidget {
+final String taskName ;
+final String subTask ;
+final int id;
+  const TaskWidget({
+    Key? key,this.taskName ="" , this.subTask ="" , this.id =0
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Card(
+        child: Row(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                width: 5,
+                color: Colors.red,
+                child: Text(""),
+              ),
+            ),
+            Expanded(
+                child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                 Text(taskName),
+                Row(
+                  children:  [
+                    Text(subTask),
+                    const Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Icon(Icons.access_time_filled),
+                    )
+                  ],
+                )
+              ],
+            )),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: RaisedButton(
+                color: Colors.blue,
+                child: const Text(
+                  "Join",
+                  style: TextStyle(color: Colors.white),
+                ),
+                onPressed: () {
+print(this.id.toString());
+
+
+
+
+                },
+              ),
+            ),
+            const Text(""),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+
+
+
+final List<TaskModel> _listTaskModel = [
+TaskModel(task :"flutter", subTask:"12.00-13.00 PM", id:1),
+TaskModel(task :"flutter-ep2", subTask:"13.00-13.00 PM", id:2),
+TaskModel(task :"flutter-ep3", subTask:"16.00-13.00 PM", id:3)
+
+];
+
+
+
