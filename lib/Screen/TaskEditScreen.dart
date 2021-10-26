@@ -30,38 +30,24 @@ class _TaskEditScreenState extends State<TaskEditScreen> {
           children: [
             Column(
               children: [
+                //===========================input Text====================
+
                 Container(
                   child: const TextField(
-                    decoration: InputDecoration(labelText: "Enter"),
+                    decoration: InputDecoration(
+                        labelText: "Type", icon: Icon(Icons.edit)),
                   ),
                 ),
-                //=======================  title input ===========================
-                Container(
-                  color: Colors.red,
-                  height: 50,
-                  child: Row(
-                    children: [
-                      // Container(
-                      //   child: Icon(Icons.edit),
-                      //   width: 60,
-                      // ),
-                      Container(
-                          color: Colors.yellow, child: Text("fdsfsdfsdf")),
+                //===========================input Text====================
 
-                      Container(
-                        color: Colors.yellow,
-                      ),
-                    ],
-                  ),
-                ),
-                Divider(color: Colors.black),
+                const Divider(color: Colors.black),
 
                 //=========================  block  select time =========================
                 Row(
                   children: [
                     //================================  icon clock =======================
                     Container(
-                      child: Icon(Icons.lock_clock),
+                      child: const Icon(Icons.access_alarm),
                       width: 60,
                     ),
 
@@ -89,7 +75,7 @@ class _TaskEditScreenState extends State<TaskEditScreen> {
                                 ],
                               ),
                             ),
-                            Divider(color: Colors.black),
+                            const Divider(color: Colors.black),
                             //========================  block  All day =====================================================
 
                             //========================  block  Start =====================================================
@@ -104,13 +90,20 @@ class _TaskEditScreenState extends State<TaskEditScreen> {
                                     ),
                                   ),
                                   Container(
-                                    child: Text("5:00 PM"),
-                                    //color: Colors.blue,
+                                    child:
+                                        //Text("5:00 PM"),
+
+                                        InkWell(
+                                      onTap: () {
+                                        // Navigator.pushNamed(context, "write your route");โ
+                                      },
+                                      child: new Text("select time"),
+                                    ),
                                   ),
                                 ],
                               ),
                             ),
-                            Divider(color: Colors.black),
+                            const Divider(color: Colors.black),
                             //========================  block  Start =====================================================
 
                             //========================  block  end =====================================================
@@ -131,20 +124,12 @@ class _TaskEditScreenState extends State<TaskEditScreen> {
                                 ],
                               ),
                             ),
-                            Divider(color: Colors.black)
+                            const Divider(color: Colors.black),
                             //========================  block  end =====================================================
                           ],
                         )),
                   ],
                 ),
-
-                TextField(
-                  obscureText: true,
-                  decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: 'Password',
-                      fillColor: Colors.red),
-                )
               ],
             )
 
