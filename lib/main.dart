@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:telework_v2/Screen/TaskScreen2.dart';
 import 'package:telework_v2/Screen/login.dart';
+import 'package:telework_v2/Screen/menu.dart';
 
 import 'Screen/TaskScreen3.dart';
 
@@ -29,7 +30,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
      // home: const MyHomePage(title: 'Flutter Demo Home Page'),
-home: const TaskScreen2(),
+home: const MenuScreen(),
 
       
     );
