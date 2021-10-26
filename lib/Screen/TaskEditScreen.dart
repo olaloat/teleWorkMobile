@@ -15,9 +15,13 @@ class _TaskEditScreenState extends State<TaskEditScreen> {
   String add = "";
   int indexx = 0;
   TimeOfDay selectedTime = TimeOfDay.now();
+  TimeOfDay selectedTimeStart = TimeOfDay.now();
+  TimeOfDay selectedTimeEnd = TimeOfDay.now();
+  DateTime selectedDate = DateTime.now();
+  DateTime selectedDateStart = DateTime.now();
+  DateTime selectedDateEnd = DateTime.now();
 
-String timeString ="";
-
+  String timeString = "";
 
   final TextEditingController textInput = TextEditingController();
 
@@ -89,7 +93,15 @@ String timeString ="";
                                 children: [
                                   Expanded(
                                     child: Container(
-                                      child: Text("Tue , Oct 26,2021"),
+                                       child: InkWell(
+                                      onTap: () {
+                                        _selectDate(context, "start");
+                                        // Navigator.pushNamed(context, "write your route");โ
+                                      },
+                                      child: new Text(
+                                          DateFormat('yyyy-MM-dd')
+                                              .format(selectedDateStart)),
+                                    ),
                                       // color: Colors.pink,
                                     ),
                                   ),
@@ -99,10 +111,11 @@ String timeString ="";
 
                                         InkWell(
                                       onTap: () {
-                                            _selectTime(context);
+                                        _selectTime(context, "start");
                                         // Navigator.pushNamed(context, "write your route");โ
                                       },
-                                      child: new Text(formatTimeOfDay(selectedTime)),
+                                      child: new Text(
+                                          formatTimeOfDay(selectedTimeStart)),
                                     ),
                                   ),
                                 ],
@@ -117,19 +130,24 @@ String timeString ="";
                               child: Row(
                                 children: [
                                   Expanded(
-                                    child: Container(
-                                      child: Text("Tue , Oct 26,2021"),
-                                      // color: Colors.pink,
+                                    child: InkWell(
+                                      onTap: () {
+                                        _selectDate(context, "end");
+                                        // Navigator.pushNamed(context, "write your route");โ
+                                      },
+                                      child: new Text(
+                                          DateFormat('yyyy-MM-dd')
+                                              .format(selectedDateEnd)),
                                     ),
                                   ),
                                   Container(
-                                    child:
-                                        InkWell(
+                                    child: InkWell(
                                       onTap: () {
-                                            _selectTime(context);
+                                        _selectTime(context, "end");
                                         // Navigator.pushNamed(context, "write your route");โ
                                       },
-                                      child: new Text(formatTimeOfDay(selectedTime)),
+                                      child: new Text(
+                                          formatTimeOfDay(selectedTimeEnd)),
                                     ),
                                     //color: Colors.blue,
                                   ),
@@ -150,7 +168,13 @@ String timeString ="";
         ));
   }
 
-  _selectTime(BuildContext context) async {
+  _selectTime(BuildContext context, String timeType) async {
+    if (timeType == "start") {
+      selectedTime = selectedTimeStart;
+    } else {
+      selectedTime = selectedTimeEnd;
+    }
+
     final TimeOfDay? timeOfDay = await showTimePicker(
       context: context,
       initialTime: selectedTime,
@@ -158,19 +182,46 @@ String timeString ="";
     );
     if (timeOfDay != null && timeOfDay != selectedTime) {
       setState(() {
-        selectedTime = timeOfDay;
+        if (timeType == "start") {
+          selectedTimeStart = timeOfDay;
+        } else {
+          selectedTimeEnd = timeOfDay;
+        }
       });
     }
   }
 
+  _selectDate(BuildContext context, String dateType) async {
+    if (dateType == "start") {
+      selectedDate = selectedDateStart;
+    } else {
+      selectedDate = selectedDateEnd;
+    }
 
+    final DateTime? selected = await showDatePicker(
+      context: context,
+      initialDate: selectedDate,
+      firstDate: DateTime(2010),
+      lastDate: DateTime(2025),
+    );
+    if (selected != null && selected != selectedDate)
+      setState(() {
+        if (dateType == "start") {
+          selectedDateStart = selected;
+        } else {
+          selectedDateEnd = selected;
+        }
+
+        //  selectedDate = selected;
+      });
+  }
 
   String formatTimeOfDay(TimeOfDay tod) {
     final now = new DateTime.now();
     final dt = DateTime(now.year, now.month, now.day, tod.hour, tod.minute);
-    final format = DateFormat.jm();  //"6:00 AM"
+    final format = DateFormat.jm(); //"6:00 AM"
     return format.format(dt);
-}
+  }
 }
 
 class TextFeildWG extends StatelessWidget {
