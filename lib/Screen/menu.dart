@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:telework_v2/Screen/TaskEditScreen.dart';
 import 'package:telework_v2/Screen/TaskScreen2.dart';
+import 'package:telework_v2/Screen/TaskScreen6.dart';
 import 'package:telework_v2/Screen/taskScreen.dart';
 
 import 'TaskScreen4.dart';
@@ -90,11 +92,11 @@ class _MenuScreenState extends State<MenuScreen> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const TaskScreen5()),
+                          builder: (context) => const TaskEditScreen()),
                     );
                   },
-                  child: const Text("menu1")),
-              ElevatedButton(onPressed: () {}, child: const Text("menu1"))
+                  child: const Text("menu6")),
+              ElevatedButton(onPressed: () {}, child: const Text("menu6"))
             ],
           ),
         ),
