@@ -2,6 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:telework_v2/Models/TaskModel.dart';
+import 'package:telework_v2/Models/TaskModel.dart';
+import 'package:telework_v2/Screen/TaskEditScreen.dart';
 
 class TaskScreen6 extends StatefulWidget {
   const TaskScreen6({Key? key}) : super(key: key);
@@ -14,7 +16,7 @@ class _TaskScreen6State extends State<TaskScreen6> {
   String add = "";
   int indexx = 0;
   TimeOfDay selectedTime = TimeOfDay.now();
-
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,37 +27,21 @@ class _TaskScreen6State extends State<TaskScreen6> {
               icon: Icon(Icons.add),
               onPressed: () {
 //==================================  on press ================
+                Operation.navigateScreenTaskEdit(context);
 
-                indexx += 1;
-                TaskModel newTask = TaskModel(
-                    task: "flutter-ep3" + indexx.toString(),
-                    subTask: "16.00-13.00 PM",
-                    id: 3);
-                setState(() {
-                  _listTaskModel.add(newTask);
-                });
+//==================================  on press ================
+              },
+            ),
+             IconButton(
+              icon: Icon(Icons.clear),
+              onPressed: () {
+//==================================  on press ================
+             
+
 //==================================  on press ================
               },
             )
           ],
-        ),
-        bottomNavigationBar: BottomNavigationBar(
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: 'Home',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.task),
-              label: 'About',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.access_alarm),
-              label: 'Profile',
-            ),
-          ],
-          currentIndex: 1,
-          // onTap: _onItemTapped,
         ),
         body: ListView(
           children: [
@@ -65,14 +51,24 @@ class _TaskScreen6State extends State<TaskScreen6> {
                   children: [
                     Expanded(
                       child: Container(
-                        child:TaskWidget(id: 0 , taskName: "task1" , subTask: "subtask",),
-                        color: Colors.red,
+                        child: TaskWidget(
+                          id: 0,
+                          typeName: "Implement",
+                          taskName: "Project",
+                          subTask: "migrate server",
+                        ),
+                       // color: Colors.red,
                       ),
                     ),
-                     Expanded(
+                    Expanded(
                       child: Container(
-                        child:TaskWidget(id: 0 , taskName: "task1" , subTask: "subtask",),
-                        color: Colors.red,
+                        child: TaskWidget(
+                          id: 0,
+                          typeName: "Implement",
+                          taskName: "Project",
+                          subTask: "migrate server",
+                        ),
+                     //   color: Colors.red,
                       ),
                     ),
                   ],
@@ -101,8 +97,7 @@ class _TaskScreen6State extends State<TaskScreen6> {
         );
   }
 
-
-   _selectTime(BuildContext context) async {
+  _selectTime(BuildContext context) async {
     final TimeOfDay? timeOfDay = await showTimePicker(
       context: context,
       initialTime: selectedTime,
@@ -120,38 +115,57 @@ class TaskWidget extends StatelessWidget {
   final String taskName;
   final String subTask;
   final int id;
+  final String typeName;
   const TaskWidget(
-      {Key? key, this.taskName = "", this.subTask = "", this.id = 0})
+      {Key? key,
+      this.taskName = "",
+      this.subTask = "",
+      this.id = 0,
+      this.typeName = ""})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(4.0),
-      child: InkWell(onTap: (){},
-        child: Card( 
-          color: Colors.yellow,
+      child: InkWell(
+        onTap: () {
+          Operation.navigateScreenTaskEdit(context);
+        },
+        child: Card(
+          color: Colors.blue[100],
           child: Row(
             children: [
-              Padding(
-                padding: const EdgeInsets.all(4.0),
-                child: Container(
-                  width: 5,
-                  color: Colors.red,
-                  child: Text(""),
-                ),
+              Container(
+                width: 5,
+                //  color: Colors.red,
+                child: Text(""),
               ),
               Expanded(
                   child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(taskName),
+                  Text(  "Type:" +
+                    typeName,
+                    style: TextStyle(
+                        fontSize: 18
+                        ,
+                        //  height: 2.0,
+                        color: Colors.black),
+                  ),
+                  Text("Task:" + taskName ,  style: TextStyle(
+                        fontSize: 16,
+                        //  height: 2.0,
+                        color: Colors.black),),
                   Row(
                     children: [
-                      Text(subTask),
+                      Text("Sub task:" +subTask ,    style: TextStyle(
+                        fontSize: 12,
+                        //  height: 2.0,
+                        color: Colors.black),),
                       const Padding(
                         padding: EdgeInsets.all(8.0),
-                        child: Icon(Icons.access_time_filled),
+                       // child: Icon(Icons.access_time_filled),
                       )
                     ],
                   )
@@ -164,14 +178,22 @@ class TaskWidget extends StatelessWidget {
       ),
     );
   }
-
-
-
-  
 }
 
 final List<TaskModel> _listTaskModel = [
-  TaskModel(task: "flutter", subTask: "12.00-13.00 PM", id: 1),
-  TaskModel(task: "flutter-ep2", subTask: "13.00-13.00 PM", id: 2),
-  TaskModel(task: "flutter-ep3", subTask: "16.00-13.00 PM", id: 3)
+   TaskModel(workType: "Implement",
+    workTask: "Project",
+     workSubTask: "Migrate Server", 
+     id: 0, 
+     type: "Plan")
+
 ];
+
+class Operation {
+  static void navigateScreenTaskEdit(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const TaskEditScreen()),
+    );
+  }
+}

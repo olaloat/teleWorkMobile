@@ -25,14 +25,14 @@ class _TaskScreen2State extends State<TaskScreen2> {
             onPressed: () {
 //==================================  on press ================
 
-              indexx += 1;
-              TaskModel newTask = TaskModel(
-                  task: "flutter-ep3" + indexx.toString(),
-                  subTask: "16.00-13.00 PM",
-                  id: 3);
-              setState(() {
-                _listTaskModel.add(newTask);
-              });
+              // indexx += 1;
+              // TaskModel newTask = TaskModel(
+              //     task: "flutter-ep3" + indexx.toString(),
+              //     subTask: "16.00-13.00 PM",
+              //     id: 3);
+              // setState(() {
+              //   _listTaskModel.add(newTask);
+              // });
 //==================================  on press ================
             },
           )
@@ -56,17 +56,17 @@ class _TaskScreen2State extends State<TaskScreen2> {
         currentIndex: 1,
         // onTap: _onItemTapped,
       ),
-      body: ListView.builder(
-        scrollDirection: Axis.vertical,
-        itemCount: _listTaskModel.length,
-        itemBuilder: (BuildContext context, int index) {
-          return TaskWidget(
-            taskName: _listTaskModel[index].task,
-            subTask: _listTaskModel[index].subTask,
-            id: _listTaskModel[index].id,
-          );
-        },
-      ),
+      // body: ListView.builder(
+      //   scrollDirection: Axis.vertical,
+      //   itemCount: _listTaskModel.length,
+      //   itemBuilder: (BuildContext context, int index) {
+      //     return TaskWidget(
+      //       taskName: _listTaskModel[index].task,
+      //       subTask: _listTaskModel[index].subTask,
+      //       id: _listTaskModel[index].id,
+      //     );
+      //   },
+      // ),
     );
   }
 }
@@ -133,8 +133,8 @@ class TaskWidget extends StatelessWidget {
   }
 }
 
-final List<TaskModel> _listTaskModel = [
-  TaskModel(task: "flutter", subTask: "12.00-13.00 PM", id: 1),
-  TaskModel(task: "flutter-ep2", subTask: "13.00-13.00 PM", id: 2),
-  TaskModel(task: "flutter-ep3", subTask: "16.00-13.00 PM", id: 3)
-];
+// final List<TaskModel> _listTaskModel = [
+//   TaskModel(task: "flutter", subTask: "12.00-13.00 PM", id: 1),
+//   TaskModel(task: "flutter-ep2", subTask: "13.00-13.00 PM", id: 2),
+//   TaskModel(task: "flutter-ep3", subTask: "16.00-13.00 PM", id: 3)
+// ];

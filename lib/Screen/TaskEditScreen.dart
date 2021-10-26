@@ -20,33 +20,78 @@ class _TaskEditScreenState extends State<TaskEditScreen> {
   DateTime selectedDate = DateTime.now();
   DateTime selectedDateStart = DateTime.now();
   DateTime selectedDateEnd = DateTime.now();
+  bool isAllDay = false;
+  String workType = "";
+  String workTask = "";
+  String workSubTask = "";
+  int id = 0;
+  String type = "";
 
   String timeString = "";
 
-  final TextEditingController textInput = TextEditingController();
-
+  final TextEditingController textInputType = TextEditingController();
+ final TextEditingController textInputTask = TextEditingController();
+  final TextEditingController textInputSubtask = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           title: const Text("New event"),
           actions: [
-            IconButton(onPressed: () {}, icon: Icon(Icons.check)),
+            IconButton(
+                onPressed: () {
+                  MyTaskList.myList.add(TaskModel(
+                      workType: textInputType.text,
+                      workTask:  textInputTask.text,
+                      workSubTask:  textInputSubtask.text,
+                      id: id,
+                      type: type));
+                },
+                icon: const Icon(Icons.check)),
           ],
         ),
         body: ListView(
           children: [
             Column(
               children: [
-                //===========================input Text====================
+                //===========================input type====================
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                      height: 30,
+                      child:  TaskInputWidget(
+                        
 
-                Container(
-                  child: const TextField(
-                    decoration: InputDecoration(
-                        labelText: "Type", icon: Icon(Icons.edit)),
-                  ),
+                          textInput: textInputType,
+                        labelString: "Type",
+                      )),
                 ),
-                //===========================input Text====================
+                //===========================input type====================
+
+                //===========================input type====================
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                      height: 30,
+                      //width: 50,
+                      child:  TaskInputWidget(
+                        textInput: textInputTask,
+                        labelString: "Task",
+                      )),
+                ),
+                //===========================input type====================
+
+                //===========================input type====================
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                      height: 30,
+                      child:  TaskInputWidget(
+                          textInput: textInputSubtask,
+                        labelString: "Sub task",
+                      )),
+                ),
+                //===========================input type====================
 
                 const Divider(color: Colors.black),
 
@@ -55,7 +100,9 @@ class _TaskEditScreenState extends State<TaskEditScreen> {
                   children: [
                     //================================  icon clock =======================
                     Container(
-                      child: const Icon(Icons.access_alarm),
+                      child: Align(
+                          alignment: Alignment.topCenter,
+                          child: const Icon(Icons.access_alarm)),
                       width: 60,
                     ),
 
@@ -77,7 +124,23 @@ class _TaskEditScreenState extends State<TaskEditScreen> {
                                     ),
                                   ),
                                   Container(
-                                    child: Text("check"),
+                                    child:
+                                        //Text("check"),
+
+                                        Switch(
+                                      //trackColor:Colors.blue,
+
+                                      value: isAllDay,
+                                      onChanged: (value) {
+                                        setState(() {
+                                          isAllDay = value;
+                                          print(isAllDay);
+                                        });
+                                      },
+                                      activeTrackColor: Colors.blue[200],
+                                      activeColor: Colors.blue,
+                                    ),
+
                                     //color: Colors.blue,
                                   ),
                                 ],
@@ -93,15 +156,14 @@ class _TaskEditScreenState extends State<TaskEditScreen> {
                                 children: [
                                   Expanded(
                                     child: Container(
-                                       child: InkWell(
-                                      onTap: () {
-                                        _selectDate(context, "start");
-                                        // Navigator.pushNamed(context, "write your route");โ
-                                      },
-                                      child: new Text(
-                                          DateFormat('yyyy-MM-dd')
-                                              .format(selectedDateStart)),
-                                    ),
+                                      child: InkWell(
+                                        onTap: () {
+                                          _selectDate(context, "start");
+                                          // Navigator.pushNamed(context, "write your route");โ
+                                        },
+                                        child: new Text(DateFormat('yyyy-MM-dd')
+                                            .format(selectedDateStart)),
+                                      ),
                                       // color: Colors.pink,
                                     ),
                                   ),
@@ -135,9 +197,8 @@ class _TaskEditScreenState extends State<TaskEditScreen> {
                                         _selectDate(context, "end");
                                         // Navigator.pushNamed(context, "write your route");โ
                                       },
-                                      child: new Text(
-                                          DateFormat('yyyy-MM-dd')
-                                              .format(selectedDateEnd)),
+                                      child: new Text(DateFormat('yyyy-MM-dd')
+                                          .format(selectedDateEnd)),
                                     ),
                                   ),
                                   Container(
@@ -224,6 +285,27 @@ class _TaskEditScreenState extends State<TaskEditScreen> {
   }
 }
 
+class TaskInputWidget extends StatelessWidget {
+  const TaskInputWidget(
+      {Key? key, required this.labelString, required this.textInput})
+      : super(key: key);
+  final String labelString;
+  final TextEditingController textInput;
+  @override
+  Widget build(BuildContext context) {
+    return TextField(
+      controller: textInput,
+      
+      style: TextStyle(
+          fontSize: 14,
+          //  height: 2.0,
+          color: Colors.black),
+      decoration:
+          InputDecoration(labelText: labelString, icon: Icon(Icons.edit)),
+    );
+  }
+}
+
 class TextFeildWG extends StatelessWidget {
   const TextFeildWG({
     Key? key,
@@ -235,6 +317,7 @@ class TextFeildWG extends StatelessWidget {
   final TextEditingController textInput;
   final String feildType;
   final String labelTxt;
+
   @override
   Widget build(BuildContext context) {
     return TextField(
@@ -323,8 +406,8 @@ class TaskWidget extends StatelessWidget {
   }
 }
 
-final List<TaskModel> _listTaskModel = [
-  TaskModel(task: "flutter", subTask: "12.00-13.00 PM", id: 1),
-  TaskModel(task: "flutter-ep2", subTask: "13.00-13.00 PM", id: 2),
-  TaskModel(task: "flutter-ep3", subTask: "16.00-13.00 PM", id: 3)
-];
+// final List<TaskModel> _listTaskModel = [
+//   TaskModel(task: "flutter", subTask: "12.00-13.00 PM", id: 1),
+//   TaskModel(task: "flutter-ep2", subTask: "13.00-13.00 PM", id: 2),
+//   TaskModel(task: "flutter-ep3", subTask: "16.00-13.00 PM", id: 3)
+// ];
