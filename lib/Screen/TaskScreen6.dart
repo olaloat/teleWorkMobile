@@ -13,6 +13,7 @@ class TaskScreen6 extends StatefulWidget {
 class _TaskScreen6State extends State<TaskScreen6> {
   String add = "";
   int indexx = 0;
+  TimeOfDay selectedTime = TimeOfDay.now();
 
   @override
   Widget build(BuildContext context) {
@@ -99,6 +100,20 @@ class _TaskScreen6State extends State<TaskScreen6> {
         // ),
         );
   }
+
+
+   _selectTime(BuildContext context) async {
+    final TimeOfDay? timeOfDay = await showTimePicker(
+      context: context,
+      initialTime: selectedTime,
+      initialEntryMode: TimePickerEntryMode.dial,
+    );
+    if (timeOfDay != null && timeOfDay != selectedTime) {
+      setState(() {
+        selectedTime = timeOfDay;
+      });
+    }
+  }
 }
 
 class TaskWidget extends StatelessWidget {
@@ -149,6 +164,10 @@ class TaskWidget extends StatelessWidget {
       ),
     );
   }
+
+
+
+  
 }
 
 final List<TaskModel> _listTaskModel = [

@@ -15,6 +15,10 @@ class _TaskEditScreenState extends State<TaskEditScreen> {
   String add = "";
   int indexx = 0;
   TimeOfDay selectedTime = TimeOfDay.now();
+
+String timeString ="";
+
+
   final TextEditingController textInput = TextEditingController();
 
   @override
@@ -95,9 +99,10 @@ class _TaskEditScreenState extends State<TaskEditScreen> {
 
                                         InkWell(
                                       onTap: () {
+                                            _selectTime(context);
                                         // Navigator.pushNamed(context, "write your route");โ
                                       },
-                                      child: new Text("select time"),
+                                      child: new Text(formatTimeOfDay(selectedTime)),
                                     ),
                                   ),
                                 ],
@@ -118,7 +123,14 @@ class _TaskEditScreenState extends State<TaskEditScreen> {
                                     ),
                                   ),
                                   Container(
-                                    child: Text("6:00 PM"),
+                                    child:
+                                        InkWell(
+                                      onTap: () {
+                                            _selectTime(context);
+                                        // Navigator.pushNamed(context, "write your route");โ
+                                      },
+                                      child: new Text(formatTimeOfDay(selectedTime)),
+                                    ),
                                     //color: Colors.blue,
                                   ),
                                 ],
@@ -150,6 +162,15 @@ class _TaskEditScreenState extends State<TaskEditScreen> {
       });
     }
   }
+
+
+
+  String formatTimeOfDay(TimeOfDay tod) {
+    final now = new DateTime.now();
+    final dt = DateTime(now.year, now.month, now.day, tod.hour, tod.minute);
+    final format = DateFormat.jm();  //"6:00 AM"
+    return format.format(dt);
+}
 }
 
 class TextFeildWG extends StatelessWidget {
