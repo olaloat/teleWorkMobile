@@ -31,214 +31,233 @@ class _TaskEditScreenState extends State<TaskEditScreen> {
   String timeString = "";
 
   final TextEditingController textInputType = TextEditingController();
- final TextEditingController textInputTask = TextEditingController();
+  final TextEditingController textInputTask = TextEditingController();
   final TextEditingController textInputSubtask = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text("New event"),
-          actions: [
-            IconButton(
-                onPressed: () {
-
+      appBar: AppBar(
+        title: const Text("New event"),
+        actions: [
+          IconButton(
+              onPressed: () {
                 setState(() {
-                        MyTaskList.myList.add(TaskModel(
+                  MyTaskList.myList.add(TaskModel(
                       workType: textInputType.text,
-                      workTask:  textInputTask.text,
-                      workSubTask:  textInputSubtask.text,
-                      id:   MyTaskList.myList.length,timeEnd: selectedTimeEnd,timeStart: selectedTimeStart,
+                      workTask: textInputTask.text,
+                      workSubTask: textInputSubtask.text,
+                      id: MyTaskList.myList.length,
+                      timeEnd: selectedTimeEnd,
+                      timeStart: selectedTimeStart,
                       type: type));
                 });
-            
-Operation.navigateScreenMyTask(context);
 
-                    
-                },
-                icon: const Icon(Icons.check)),
-          ],
-        ),
-        body: ListView(
-          children: [
-            Column(
-              children: [
-                //===========================input type====================
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Container(
-                      height: 30,
-                      child:  TaskInputWidget(
-                        
+                Operation.navigateScreenMyTask(context);
+              },
+              icon: const Icon(Icons.check)),
+        ],
+      ),
+      body: Column(
+        children: [
+          Column(
+            children: <Widget>[
+              //===========================input type====================
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                    height: 30,
+                    child: TaskInputWidget(
+                      textInput: textInputType,
+                      labelString: "Type",
+                    )),
+              ),
+              //===========================input type====================
 
-                          textInput: textInputType,
-                        labelString: "Type",
-                      )),
-                ),
-                //===========================input type====================
+              //===========================input type====================
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                    height: 30,
+                    //width: 50,
+                    child: TaskInputWidget(
+                      textInput: textInputTask,
+                      labelString: "Task",
+                    )),
+              ),
+              //===========================input type====================
 
-                //===========================input type====================
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Container(
-                      height: 30,
-                      //width: 50,
-                      child:  TaskInputWidget(
-                        textInput: textInputTask,
-                        labelString: "Task",
-                      )),
-                ),
-                //===========================input type====================
+              //===========================input type====================
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                    height: 30,
+                    child: TaskInputWidget(
+                      textInput: textInputSubtask,
+                      labelString: "Sub task",
+                    )),
+              ),
+              //===========================input type====================
 
-                //===========================input type====================
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Container(
-                      height: 30,
-                      child:  TaskInputWidget(
-                          textInput: textInputSubtask,
-                        labelString: "Sub task",
-                      )),
-                ),
-                //===========================input type====================
+              const Divider(color: Colors.black),
 
-                const Divider(color: Colors.black),
+              //=========================  block  select time =========================
+              Row(
+                children: [
+                  //================================  icon clock =======================
+                  Container(
+                    child: Align(
+                        alignment: Alignment.topCenter,
+                        child: const Icon(Icons.access_alarm)),
+                    width: 60,
+                  ),
 
-                //=========================  block  select time =========================
-                Row(
-                  children: [
-                    //================================  icon clock =======================
-                    Container(
-                      child: Align(
-                          alignment: Alignment.topCenter,
-                          child: const Icon(Icons.access_alarm)),
-                      width: 60,
-                    ),
+                  //================================  icon clock =======================
 
-                    //================================  icon clock =======================
-
-                    //========================  block  All day =====================================================
-                    Container(
-                        width: 320,
-                        child: Column(
-                          children: [
-                            Container(
-                              height: 30,
-                              child: Row(
-                                children: [
-                                  Expanded(
-                                    child: Container(
-                                      child: Text("All Day"),
-                                      // color: Colors.pink,
-                                    ),
+                  //========================  block  All day =====================================================
+                  Container(
+                      width: 320,
+                      child: Column(
+                        children: [
+                          Container(
+                            height: 30,
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  child: Container(
+                                    child: Text("All Day"),
+                                    // color: Colors.pink,
                                   ),
-                                  Container(
-                                    child:
-                                        //Text("check"),
+                                ),
+                                Container(
+                                  child:
+                                      //Text("check"),
 
-                                        Switch(
-                                      //trackColor:Colors.blue,
+                                      Switch(
+                                    //trackColor:Colors.blue,
 
-                                      value: isAllDay,
-                                      onChanged: (value) {
-                                        setState(() {
-                                          isAllDay = value;
-                                          print(isAllDay);
-                                        });
-                                      },
-                                      activeTrackColor: Colors.blue[200],
-                                      activeColor: Colors.blue,
-                                    ),
-
-                                    //color: Colors.blue,
+                                    value: isAllDay,
+                                    onChanged: (value) {
+                                      setState(() {
+                                        isAllDay = value;
+                                        print(isAllDay);
+                                      });
+                                    },
+                                    activeTrackColor: Colors.blue[200],
+                                    activeColor: Colors.blue,
                                   ),
-                                ],
-                              ),
+
+                                  //color: Colors.blue,
+                                ),
+                              ],
                             ),
-                            const Divider(color: Colors.black),
-                            //========================  block  All day =====================================================
+                          ),
+                          const Divider(color: Colors.black),
+                          //========================  block  All day =====================================================
 
-                            //========================  block  Start =====================================================
-                            Container(
-                              height: 30,
-                              child: Row(
-                                children: [
-                                  Expanded(
-                                    child: Container(
-                                      child: InkWell(
-                                        onTap: () {
-                                          _selectDate(context, "start");
-                                          // Navigator.pushNamed(context, "write your route");โ
-                                        },
-                                        child: new Text(DateFormat('yyyy-MM-dd')
-                                            .format(selectedDateStart)),
-                                      ),
-                                      // color: Colors.pink,
-                                    ),
-                                  ),
-                                  Container(
-                                    child:
-                                        //Text("5:00 PM"),
-
-                                        InkWell(
-                                      onTap: () {
-                                        _selectTime(context, "start");
-                                        // Navigator.pushNamed(context, "write your route");โ
-                                      },
-                                      child: new Text(
-                                          formatTimeOfDay(selectedTimeStart)),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            const Divider(color: Colors.black),
-                            //========================  block  Start =====================================================
-
-                            //========================  block  end =====================================================
-                            Container(
-                              height: 30,
-                              child: Row(
-                                children: [
-                                  Expanded(
+                          //========================  block  Start =====================================================
+                          Container(
+                            height: 30,
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  child: Container(
                                     child: InkWell(
                                       onTap: () {
-                                        _selectDate(context, "end");
+                                        _selectDate(context, "start");
                                         // Navigator.pushNamed(context, "write your route");โ
                                       },
                                       child: new Text(DateFormat('yyyy-MM-dd')
-                                          .format(selectedDateEnd)),
+                                          .format(selectedDateStart)),
                                     ),
+                                    // color: Colors.pink,
                                   ),
-                                  Container(
-                                    child: InkWell(
-                                      onTap: () {
-                                        _selectTime(context, "end");
-                                        // Navigator.pushNamed(context, "write your route");โ
-                                      },
-                                      child: new Text(
-                                          formatTimeOfDay(selectedTimeEnd)),
-                                    ),
-                                    //color: Colors.blue,
+                                ),
+                                Container(
+                                  child:
+                                      //Text("5:00 PM"),
+
+                                      InkWell(
+                                    onTap: () {
+                                      _selectTime(context, "start");
+                                      // Navigator.pushNamed(context, "write your route");โ
+                                    },
+                                    child: new Text(
+                                        formatTimeOfDay(selectedTimeStart)),
                                   ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
-                            const Divider(color: Colors.black),
-                            //========================  block  end =====================================================
-                          ],
-                        )),
-                  ],
-                ),
+                          ),
+                          const Divider(color: Colors.black),
+                          //========================  block  Start =====================================================
 
+                          //========================  block  end =====================================================
+                          Container(
+                            height: 30,
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  child: InkWell(
+                                    onTap: () {
+                                      _selectDate(context, "end");
+                                      // Navigator.pushNamed(context, "write your route");โ
+                                    },
+                                    child: new Text(DateFormat('yyyy-MM-dd')
+                                        .format(selectedDateEnd)),
+                                  ),
+                                ),
+                                Container(
+                                  child: InkWell(
+                                    onTap: () {
+                                      _selectTime(context, "end");
+                                      // Navigator.pushNamed(context, "write your route");โ
+                                    },
+                                    child: new Text(
+                                        formatTimeOfDay(selectedTimeEnd)),
+                                  ),
+                                  //color: Colors.blue,
+                                ),
+                              ],
+                            ),
+                          ),
+                          const Divider(color: Colors.black),
+                          //========================  block  end =====================================================
+                        ],
+                      )),
+                ],
+              ),
 
-                //===========================  master task list ===========================================================
-              //  ListView(children: [Card(child: Text("Migrate Server"),)],)
-              ],
-            )
+              //===========================  master task list ===========================================================
+              Container(
+                  height: 200,
+                  color: Colors.red,
+                  child: ListView(
+                    children: [
+                      Container(
+                          color: Colors.yellow,
+                          child: Container(
+                              height: 100, //width: 100,
+                              child: InkWell(
+                                child: Card(
+                                  child: Text("Migrate server"),
+                                ),
+                                onTap: () {
+                                  textInputType.text = "Implement";
+                                  textInputTask.text = "Project";
+                                  textInputSubtask.text = "Migrate server";
+                                },
+                              )))
+                    ],
+                  ))
+            ],
+          )
 
 //Row(children: [Text(" ") , Text("detail")],)
-          ],
-        ));
+        ],
+      ) ////    control editor
+
+      ,
+    );
   }
 
   _selectTime(BuildContext context, String timeType) async {
@@ -307,7 +326,6 @@ class TaskInputWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextField(
       controller: textInput,
-      
       style: TextStyle(
           fontSize: 14,
           //  height: 2.0,
