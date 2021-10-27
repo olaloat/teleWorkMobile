@@ -4,9 +4,29 @@ import 'package:flutter/material.dart';
 import 'package:telework_v2/Models/TaskModel.dart';
 import 'package:intl/intl.dart';
 import 'package:telework_v2/Operation.dart';
+import 'package:telework_v2/Screen/MyTask.dart';
 
 class TaskEditScreen extends StatefulWidget {
-  const TaskEditScreen({Key? key}) : super(key: key);
+  const TaskEditScreen({Key? key, required this.passData
+
+      //    required this.startTime,
+      //   required  this.endTime,
+      //   required  this.workType,
+      //   required  this.workTask,
+      //  required   this.workSubTask,
+      //   required  this.type,
+      //   required  this.id
+
+      })
+      : super(key: key);
+  // final TimeOfDay startTime;
+  // final TimeOfDay endTime;
+  // final String workType;
+  // final String workTask;
+  // final String workSubTask;
+  // final String type;
+  // final int id;
+  final TaskModel passData;
 
   @override
   _TaskEditScreenState createState() => _TaskEditScreenState();
@@ -15,24 +35,51 @@ class TaskEditScreen extends StatefulWidget {
 class _TaskEditScreenState extends State<TaskEditScreen> {
   String add = "";
   int indexx = 0;
+
   TimeOfDay selectedTime = TimeOfDay.now();
   TimeOfDay selectedTimeStart = TimeOfDay.now();
   TimeOfDay selectedTimeEnd = TimeOfDay.now();
+
   DateTime selectedDate = DateTime.now();
   DateTime selectedDateStart = DateTime.now();
   DateTime selectedDateEnd = DateTime.now();
+
   bool isAllDay = false;
+
   String workType = "";
   String workTask = "";
   String workSubTask = "";
+
   int id = 0;
   String type = "";
 
   String timeString = "";
 
+  // late TaskModel selectedTask = TaskModel(
+  //     workType: "workType",
+  //     workTask: "workTask",
+  //     workSubTask: "workSubTask",
+  //     id: 0,
+  //     type: "type",
+  //     timeStart: TimeOfDay.now(),
+  //     timeEnd: TimeOfDay.now());
+
   final TextEditingController textInputType = TextEditingController();
   final TextEditingController textInputTask = TextEditingController();
   final TextEditingController textInputSubtask = TextEditingController();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+
+    super.initState();
+    textInputType.text = widget.passData.workType;
+    textInputSubtask.text = widget.passData.workSubTask;
+    textInputTask.text = widget.passData.workTask;
+    selectedTimeStart = widget.passData.timeStart;
+    selectedTimeEnd = widget.passData.timeEnd;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -258,6 +305,10 @@ class _TaskEditScreenState extends State<TaskEditScreen> {
 
       ,
     );
+  }
+
+  setDataSelected(TaskModel selectedTask) {
+    selectedTimeStart = selectedTask.timeStart;
   }
 
   _selectTime(BuildContext context, String timeType) async {

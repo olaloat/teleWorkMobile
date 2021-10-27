@@ -29,7 +29,14 @@ class _MyTaskState extends State<MyTask> {
             icon: Icon(Icons.add),
             onPressed: () {
 //==================================  on press ================
-              Operation.navigateScreenTaskEdit(context);
+              Operation.navigateScreenTaskEdit(context , TaskModel(
+                workType: "", 
+                workTask:  "", 
+                 workSubTask:  "",
+                  id: 0,
+                   type:  "",
+                    timeStart: TimeOfDay.now(),
+                     timeEnd: TimeOfDay.now()));
 
 //==================================  on press ================
             },
@@ -57,58 +64,9 @@ class _MyTaskState extends State<MyTask> {
 //             )
         ],
       ),
-      body:
-          // ListView(
-          //   children: [
-          //     Column(
-          //       children: [
-          //         Row(
-          //           children: [
-          //             Expanded(
-          //               child: Container(
-          //                 child: TaskWidget(
-          //                   id: 0,
-          //                   typeName: "Implement",
-          //                   taskName: "Project",
-          //                   subTask: "migrate server",
-          //                 ),
-          //                // color: Colors.red,
-          //               ),
-          //             ),
-          //             Expanded(
-          //               child: Container(
-          //                 child: TaskWidget(
-          //                   id: 0,
-          //                   typeName: "Implement",
-          //                   taskName: "Project",
-          //                   subTask: "migrate server",
-          //                 ),
-          //              //   color: Colors.red,
-          //               ),
-          //             ),
-          //           ],
-          //         ),
-          //         Row(
-          //           children: [
-          //             Text("C 2"),
-          //           ],
-          //         )
-          //       ],
-          //     )
-          //   ],
-          // )
-
-          ListView.builder(
+      body: ListView.builder(
         scrollDirection: Axis.vertical,
         itemCount: MyTaskList.myList.length,
-        // itemBuilder: (BuildContext context, int index) {
-        //   return TaskWidget(
-        //     typeName:MyTaskList.myList[index].type,
-        //   taskName:MyTaskList.myList[index].workTask,
-        //   subTask:MyTaskList.myList[index].workSubTask,
-        //   id:MyTaskList.myList[index].id);
-        // },
-
         itemBuilder: (BuildContext context, int index) {
           return TaskWidget(myTask: MyTaskList.myList[index]);
         },
@@ -131,20 +89,9 @@ class _MyTaskState extends State<MyTask> {
 }
 
 class TaskWidget extends StatelessWidget {
-  // final String taskName;
-  // final String subTask;
-  // final int id;
-  // final String typeName;
-
   final TaskModel myTask;
-
   const TaskWidget({
     Key? key,
-    // this.taskName = "",
-    // this.subTask = "",
-    // this.id = 0,
-    // this.typeName = ""
-
     required this.myTask,
   }) : super(key: key);
 
@@ -154,7 +101,11 @@ class TaskWidget extends StatelessWidget {
       padding: const EdgeInsets.all(4.0),
       child: InkWell(
         onTap: () {
-          Operation.navigateScreenTaskEdit(context);
+         // _MyTaskState editStat  =new _MyTaskState();
+
+
+          Operation.navigateScreenTaskEdit(context , 
+        myTask );
         },
         child: Card(
           color: Colors.blue[100],
@@ -201,14 +152,7 @@ class TaskWidget extends StatelessWidget {
 
                   // time  Start - End
                   Text(
-
-                    "${ Util.formatTimeOfDay(myTask.timeStart)} - ${ Util.formatTimeOfDay(myTask.timeEnd)}"
-                   
-                    
-                    
-                    
-                    
-                    )
+                      "${Util.formatTimeOfDay(myTask.timeStart)} - ${Util.formatTimeOfDay(myTask.timeEnd)}")
                 ],
               )),
               const Text(""),
