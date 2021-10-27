@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:telework_v2/Models/TaskModel.dart';
 import 'package:intl/intl.dart';
+import 'package:telework_v2/Operation.dart';
 
 class TaskEditScreen extends StatefulWidget {
   const TaskEditScreen({Key? key}) : super(key: key);
@@ -40,12 +41,19 @@ class _TaskEditScreenState extends State<TaskEditScreen> {
           actions: [
             IconButton(
                 onPressed: () {
-                  MyTaskList.myList.add(TaskModel(
+
+                setState(() {
+                        MyTaskList.myList.add(TaskModel(
                       workType: textInputType.text,
                       workTask:  textInputTask.text,
                       workSubTask:  textInputSubtask.text,
-                      id: id,
+                      id:   MyTaskList.myList.length,timeEnd: selectedTimeEnd,timeStart: selectedTimeStart,
                       type: type));
+                });
+            
+Operation.navigateScreenMyTask(context);
+
+                    
                 },
                 icon: const Icon(Icons.check)),
           ],
@@ -221,6 +229,10 @@ class _TaskEditScreenState extends State<TaskEditScreen> {
                         )),
                   ],
                 ),
+
+
+                //===========================  master task list ===========================================================
+              //  ListView(children: [Card(child: Text("Migrate Server"),)],)
               ],
             )
 

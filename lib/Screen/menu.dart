@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:telework_v2/Screen/TaskEditScreen.dart';
 import 'package:telework_v2/Screen/TaskScreen2.dart';
 import 'package:telework_v2/Screen/TaskScreen3.dart';
-import 'package:telework_v2/Screen/TaskScreen6.dart';
+import 'package:telework_v2/Screen/MyTask.dart';
 import 'package:telework_v2/Screen/taskScreen.dart';
 
 import 'TaskScreen4.dart';
@@ -114,10 +114,10 @@ class _MenuScreenState extends State<MenuScreen> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const TaskScreen6()),
+                          builder: (context) => const MyTask()),
                     );
                   },
-                  child: const Text("task screen 6")),
+                  child: const Text("My task")),
               ElevatedButton(onPressed: () {}, child: const Text("....."))
             ],
           ),
