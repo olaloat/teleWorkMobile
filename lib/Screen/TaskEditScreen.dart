@@ -275,27 +275,82 @@ class _TaskEditScreenState extends State<TaskEditScreen> {
               ),
 
               //===========================  master task list ===========================================================
+              // Container(
+              //     height: 200,
+              //     color: Colors.red,
+              //     child: ListView(
+              //       children: [
+              //         Container(
+              //             color: Colors.yellow,
+              //             child: Container(
+              //                 height: 100, //width: 100,
+              //                 child: InkWell(
+              //                   child: Card(
+              //                     child: Text("Migrate server"),
+              //                   ),
+              //                   onTap: () {
+              //                     textInputType.text = "Implement";
+              //                     textInputTask.text = "Project";
+              //                     textInputSubtask.text = "Migrate server";
+              //                   },
+              //                 )))
+              //       ],
+              //     )
+
+              //     )
+
+              //===========================  master task list ===========================================================
+
               Container(
-                  height: 200,
-                  color: Colors.red,
-                  child: ListView(
-                    children: [
-                      Container(
-                          color: Colors.yellow,
-                          child: Container(
-                              height: 100, //width: 100,
-                              child: InkWell(
-                                child: Card(
-                                  child: Text("Migrate server"),
+                color: Colors.red,
+                height: 300,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: GridView.builder(
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 3),
+
+                      //const SliverGridDelegateWithMaxCrossAxisExtent(
+
+                      //     maxCrossAxisExtent: 200,
+                      //     childAspectRatio: 3/2 ,
+                      //     crossAxisSpacing: 20,
+                      //     mainAxisSpacing: 20),
+                      itemCount: _listMasterTask.length,
+                      itemBuilder: (BuildContext ctx, index) {
+                        return Container(
+                          alignment: Alignment.center,
+                          child: Card(
+                            child: Column(
+                              children: [
+                                const Image(
+                                  fit: BoxFit.fill,
+                                  height: 80,
+                                  width: double.infinity,
+                                  image: AssetImage("assets/images/1.PNG"),
                                 ),
-                                onTap: () {
-                                  textInputType.text = "Implement";
-                                  textInputTask.text = "Project";
-                                  textInputSubtask.text = "Migrate server";
-                                },
-                              )))
-                    ],
-                  ))
+                                Text(
+                                  _listMasterTask[index].workSubTask,
+                                  style: TextStyle(
+                                      color: Colors.black, fontSize: 14),
+                                ),
+                                Text(
+                                  _listMasterTask[index].workType,
+                                  style: TextStyle(
+                                      color: Colors.black54, fontSize: 12),
+                                )
+                              ],
+                            ),
+                          ),
+                          //Text(_listMasterTask[index].workSubTask),
+                          decoration: BoxDecoration(
+                              color: Colors.amber,
+                              borderRadius: BorderRadius.circular(15)),
+                        );
+                      }),
+                ),
+              )
             ],
           )
 
@@ -447,7 +502,7 @@ class TaskWidget extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: Container(
                 width: 5,
-                child: Text(""),
+                child: const Text(""),
               ),
             ),
             Expanded(
@@ -486,6 +541,46 @@ class TaskWidget extends StatelessWidget {
     );
   }
 }
+
+// class TaskMaster extends TaskModel {
+//   TaskMaster() : super();
+
+// }
+
+final List<TaskModel> _listMasterTask = [
+  TaskModel(
+      workType: "Implement",
+      workTask: "Project",
+      workSubTask: "EPS",
+      id: 0,
+      type: "",
+      timeStart: TimeOfDay.now(),
+      timeEnd: TimeOfDay.now()),
+  TaskModel(
+      workType: "Implement",
+      workTask: "Project",
+      workSubTask: "Po control",
+      id: 0,
+      type: "",
+      timeStart: TimeOfDay.now(),
+      timeEnd: TimeOfDay.now()),
+  TaskModel(
+      workType: "Implement",
+      workTask: "Project",
+      workSubTask: "IBG",
+      id: 0,
+      type: "",
+      timeStart: TimeOfDay.now(),
+      timeEnd: TimeOfDay.now()),
+  TaskModel(
+      workType: "Implement",
+      workTask: "Project",
+      workSubTask: "Migrate server",
+      id: 0,
+      type: "",
+      timeStart: TimeOfDay.now(),
+      timeEnd: TimeOfDay.now()),
+];
 
 // final List<TaskModel> _listTaskModel = [
 //   TaskModel(task: "flutter", subTask: "12.00-13.00 PM", id: 1),

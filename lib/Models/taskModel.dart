@@ -10,6 +10,7 @@ class TaskModel {
   final String type;
    TimeOfDay timeStart = TimeOfDay.now();
    TimeOfDay timeEnd= TimeOfDay.now();
+  String  imagePath ; 
  
 
   TaskModel({
@@ -18,9 +19,9 @@ class TaskModel {
     required this.workSubTask,
     required this.id,
     required this.type,
-    
-     required this.timeStart,
-    required  this.timeEnd
+    this.imagePath ="assets/images/1.PNG",
+    required this.timeStart,
+    required  this.timeEnd, Key? key, //String subTask
   });
 }
 

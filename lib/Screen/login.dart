@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:telework_v2/Screen/menu.dart';
+import '../singletons/GlobalAppData.dart';
 
 class loginScreen extends StatefulWidget {
   const loginScreen({Key? key}) : super(key: key);
@@ -14,10 +15,10 @@ class _loginScreenState extends State<loginScreen> {
   String textResult = "resut";
   @override
   Widget build(BuildContext context) {
-    final TextEditingController textInput = TextEditingController();
-
+    final TextEditingController textInputUsernameController = TextEditingController()..text="Nattawut_ja";
+ final TextEditingController textInputPasswordController = TextEditingController()..text="aiap@123";
     return Scaffold(
-        backgroundColor: Colors.red,
+       // backgroundColor: Colors.red,
         appBar: AppBar(
           title: Text(
             "Login Screen",
@@ -26,18 +27,18 @@ class _loginScreenState extends State<loginScreen> {
           // the App.build method, and use it to set our appbar title.
         ),
         body: Container(
-          color: Colors.red,
+         // color: Colors.red,
           child: Column(
             children: [
               TextBox(
-                textInput: textInput,
+                textInput: textInputUsernameController,
                 lbTxt: "Username",
                 icon: Icons.person,
                 hintTxt: "Please input your username.",
               ),
 
               TextBox(
-                textInput: textInput,
+                textInput: textInputPasswordController,
                 lbTxt: "Password",
                 icon: Icons.lock,
                 hintTxt: "Please input your password...",
@@ -47,7 +48,7 @@ class _loginScreenState extends State<loginScreen> {
                 textResult,
               ),
 
-              const Cbt(btTxt: "Login"),
+               Cbt(btTxt: "Login"  , username: textInputUsernameController.text),
 
               ElevatedButton(
                   onPressed: () {
@@ -74,14 +75,24 @@ class $textResult {}
 
 class Cbt extends StatelessWidget {
   final String btTxt;
-  const Cbt({Key? key, this.btTxt = ""}) : super(key: key);
+  final String username ;
+   Cbt({Key? key, this.btTxt = "" , this.username =""}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    // ignore: sized_box_for_whitespace
     return Container(
       width: 200,
       child: ElevatedButton(
-        onPressed: () {},
+        onPressed: () {
+
+
+GlobalAppData globalAppData = GlobalAppData();
+ globalAppData.userName = this.username ;
+//  Text('Global Data (Singleton), Name: ${globalAppData.name}'),
+
+
+        },
         child: Text(btTxt),
         style: ElevatedButton.styleFrom(
           primary: Colors.blue, // background
