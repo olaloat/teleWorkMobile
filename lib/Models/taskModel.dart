@@ -8,10 +8,10 @@ class TaskModel {
   final String workSubTask;
   final String workType;
   final String type;
-   TimeOfDay timeStart = TimeOfDay.now();
-   TimeOfDay timeEnd= TimeOfDay.now();
-  String  imagePath ; 
- 
+  TimeOfDay timeStart = TimeOfDay.now();
+  TimeOfDay timeEnd = TimeOfDay.now();
+//  final Image imageTask;
+  String imagePath;
 
   TaskModel({
     required this.workType,
@@ -19,9 +19,11 @@ class TaskModel {
     required this.workSubTask,
     required this.id,
     required this.type,
-    this.imagePath ="assets/images/1.PNG",
+    this.imagePath = "assets/images/1.PNG",
     required this.timeStart,
-    required  this.timeEnd, Key? key, //String subTask
+    required this.timeEnd,
+    
+    Key? key, //String subTask
   });
 }
 
@@ -29,8 +31,8 @@ class MyTaskList {
   static final List<TaskModel> myList = [
     TaskModel(
       id: 0,
-      type: "1111",
-      workTask: "task work ",
+      type: "00000",
+      workTask: "task 0000 ",
       workSubTask: "lllllll",
       workType: "",
       timeStart: TimeOfDay.now(),

@@ -3,18 +3,17 @@
 import 'package:flutter/material.dart';
 import 'package:telework_v2/Class/Util.dart';
 import 'package:telework_v2/Models/TaskModel.dart';
-import 'package:telework_v2/Models/TaskModel.dart';
 import 'package:telework_v2/Operation.dart';
-import 'package:telework_v2/Screen/TaskEditScreen.dart';
+import '../singletons/GlobalAppData.dart';
 
-class MyTask extends StatefulWidget {
-  const MyTask({Key? key}) : super(key: key);
+class MyTaskScreen extends StatefulWidget {
+  const MyTaskScreen({Key? key}) : super(key: key);
 
   @override
-  _MyTaskState createState() => _MyTaskState();
+  _MyTaskScreenState createState() => _MyTaskScreenState();
 }
 
-class _MyTaskState extends State<MyTask> {
+class _MyTaskScreenState extends State<MyTaskScreen> {
   String add = "";
   int indexx = 0;
   TimeOfDay selectedTime = TimeOfDay.now();
@@ -23,20 +22,22 @@ class _MyTaskState extends State<MyTask> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("My Task"),
+        title: Text('title : ${globalAppData.userName}'),
         actions: [
           IconButton(
             icon: Icon(Icons.add),
             onPressed: () {
 //==================================  on press ================
-              Operation.navigateScreenTaskEdit(context , TaskModel(
-                workType: "", 
-                workTask:  "", 
-                 workSubTask:  "",
-                  id: 0,
-                   type:  "",
-                    timeStart: TimeOfDay.now(),
-                     timeEnd: TimeOfDay.now()));
+              Operation.navigateScreenTaskEdit(
+                  context,
+                  TaskModel(
+                      workType: "",
+                      workTask: "",
+                      workSubTask: "",
+                      id: 0,
+                      type: "",
+                      timeStart: TimeOfDay.now(),
+                      timeEnd: TimeOfDay.now()));
 
 //==================================  on press ================
             },
@@ -68,7 +69,7 @@ class _MyTaskState extends State<MyTask> {
         scrollDirection: Axis.vertical,
         itemCount: MyTaskList.myList.length,
         itemBuilder: (BuildContext context, int index) {
-          return TaskWidget(myTask: MyTaskList.myList[index]);
+          return TaskWidget(MyTaskScreen: MyTaskList.myList[index]);
         },
       ),
     );
@@ -89,10 +90,10 @@ class _MyTaskState extends State<MyTask> {
 }
 
 class TaskWidget extends StatelessWidget {
-  final TaskModel myTask;
+  final TaskModel MyTaskScreen;
   const TaskWidget({
     Key? key,
-    required this.myTask,
+    required this.MyTaskScreen,
   }) : super(key: key);
 
   @override
@@ -101,11 +102,9 @@ class TaskWidget extends StatelessWidget {
       padding: const EdgeInsets.all(4.0),
       child: InkWell(
         onTap: () {
-         // _MyTaskState editStat  =new _MyTaskState();
+          // _MyTaskScreenState editStat  =new _MyTaskScreenState();
 
-
-          Operation.navigateScreenTaskEdit(context , 
-        myTask );
+         // Operation.navigateScreenTaskEdit(context, MyTaskScreen);
         },
         child: Card(
           color: Colors.blue[100],
@@ -121,14 +120,15 @@ class TaskWidget extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Type:" + myTask.workType,
+                    "Type:" + MyTaskScreen.workType,
                     style: const TextStyle(
                         fontSize: 18,
                         //  height: 2.0,
                         color: Colors.black),
                   ),
                   Text(
-                    "Task:" + myTask.workTask,
+                    // "Task:" + MyTaskScreen.workTask,
+                    'title : ${globalAppData.userName}',
                     style: const TextStyle(
                         fontSize: 16,
                         //  height: 2.0,
@@ -137,7 +137,7 @@ class TaskWidget extends StatelessWidget {
                   Row(
                     children: [
                       Text(
-                        "Sub task:" + myTask.workSubTask,
+                        "Sub task:" + MyTaskScreen.workSubTask,
                         style: const TextStyle(
                             fontSize: 12,
                             //  height: 2.0,
@@ -152,7 +152,7 @@ class TaskWidget extends StatelessWidget {
 
                   // time  Start - End
                   Text(
-                      "${Util.formatTimeOfDay(myTask.timeStart)} - ${Util.formatTimeOfDay(myTask.timeEnd)}")
+                      "${Util.formatTimeOfDay(MyTaskScreen.timeStart)} - ${Util.formatTimeOfDay(MyTaskScreen.timeEnd)}")
                 ],
               )),
               const Text(""),

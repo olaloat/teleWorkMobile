@@ -5,6 +5,7 @@ import 'package:telework_v2/Screen/TaskScreen2.dart';
 import 'package:telework_v2/Screen/TaskScreen3.dart';
 import 'package:telework_v2/Screen/MyTask.dart';
 import 'package:telework_v2/Screen/login.dart';
+import 'package:telework_v2/Screen/mainLogin.dart';
 import 'package:telework_v2/Screen/taskScreen.dart';
 
 import 'TaskScreen4.dart';
@@ -40,12 +41,6 @@ class _MenuScreenState extends State<MenuScreen> {
                     );
                   },
                   child: const Text("....")),
-
-
-
-
-
-
               ElevatedButton(
                   onPressed: () {
                     Navigator.push(
@@ -55,10 +50,7 @@ class _MenuScreenState extends State<MenuScreen> {
                     );
                   },
                   child: const Text("taskScreen 2")),
-
-
-
-            ElevatedButton(
+              ElevatedButton(
                   onPressed: () {
                     Navigator.push(
                       context,
@@ -67,8 +59,6 @@ class _MenuScreenState extends State<MenuScreen> {
                     );
                   },
                   child: const Text("taskScreen 3")),
-
-
               ElevatedButton(
                   onPressed: () {
                     Navigator.push(
@@ -78,11 +68,6 @@ class _MenuScreenState extends State<MenuScreen> {
                     );
                   },
                   child: const Text("task screen 4")),
-
-
-
-
-
               ElevatedButton(
                   onPressed: () {
                     Navigator.push(
@@ -92,12 +77,6 @@ class _MenuScreenState extends State<MenuScreen> {
                     );
                   },
                   child: const Text("task screen 5.0")),
-
-
-
-
-
-
               ElevatedButton(
                   onPressed: () {
                     // Navigator.push(
@@ -107,39 +86,32 @@ class _MenuScreenState extends State<MenuScreen> {
                     // );
                   },
                   child: const Text("Task edit")),
-
-
-
-                  
+              ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const MyTaskScreen()),
+                    );
+                  },
+                  child: const Text("My task")),
+              ElevatedButton(
+                  onPressed: () {
+                    // Navigator.push(
+                    //       context,
+                    //       MaterialPageRoute(
+                    //           builder: (context) => const MyTask2()),
+                    //     );
+                  },
+                  child: const Text("My task2")),
               ElevatedButton(
                   onPressed: () {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const MyTask()),
+                          builder: (context) => const MainLoginScreen()),
                     );
                   },
-                  child: const Text("My task")),
-
-
-
-              ElevatedButton(onPressed: () { 
-                // Navigator.push(
-                //       context,
-                //       MaterialPageRoute(
-                //           builder: (context) => const MyTask2()),
-                //     );
-                     },
-                     child: const Text("My task2")),
-
-
-                     ElevatedButton(onPressed: () { 
-                Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const loginScreen()),
-                    );
-                    }, child: const Text("log in"))
+                  child: const Text("log in"))
             ],
           ),
         ),

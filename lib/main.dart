@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:telework_v2/Screen/MyTask.dart';
 import 'package:telework_v2/Screen/TaskScreen2.dart';
 import 'package:telework_v2/Screen/login.dart';
+import 'package:telework_v2/Screen/mainLogin.dart';
+import 'package:telework_v2/Screen/mainMenu.dart';
 import 'package:telework_v2/Screen/menu.dart';
-
+import 'package:telework_v2/Screen/templateListScreen.dart';
+import 'package:telework_v2/Screen/templateScreen.dart';
+//import 'package:telework_v2/Screen/templates.dart';
 import 'Screen/TaskScreen3.dart';
 
 void main() {
@@ -17,6 +22,15 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
+      initialRoute: '/',
+      routes: {
+        // '/': (context) => const MainLoginScreen(),
+        '/mainMenu': (context) => const MainMenuScreen(),
+        '/myTask': (context) => const MyTaskScreen(),
+        // '/master': (context) => const loginScreen(),
+        '/template': (context) => const TemplateScreen(),
+        '/templateList': (context) => const TemplateListScreen(),
+      },
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -29,10 +43,8 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-     // home: const MyHomePage(title: 'Flutter Demo Home Page'),
-home: const MenuScreen(),
-
-      
+      // home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MainLoginScreen(),
     );
   }
 }
@@ -42,6 +54,7 @@ class MyHomePage extends StatefulWidget {
 
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
+
   // how it looks.
 
   // This class is the configuration for the state. It holds the values (in this
@@ -52,9 +65,9 @@ class MyHomePage extends StatefulWidget {
   final String title;
 
   @override
- State<MyHomePage> createState() => _MyHomePageState();
+  State<MyHomePage> createState() => _MyHomePageState();
 
- //State<MyHomePage> createState() =>  _loginScreenState();
+  //State<MyHomePage> createState() =>  _loginScreenState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {

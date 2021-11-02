@@ -1,33 +1,38 @@
 import 'package:flutter/material.dart';
+import 'package:telework_v2/Screen/MyTask.dart';
+import 'package:telework_v2/Screen/mainMenu.dart';
 import 'package:telework_v2/Screen/menu.dart';
+import 'package:telework_v2/services/authen_service.dart';
 import '../singletons/GlobalAppData.dart';
 
-class loginScreen extends StatefulWidget {
-  const loginScreen({Key? key}) : super(key: key);
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({Key? key}) : super(key: key);
 
   @override
-  _loginScreenState createState() => _loginScreenState();
+  _LoginScreenState createState() => _LoginScreenState();
 }
 
 // 2.   ส่ง class นี้ขึ้นไป build ใส่ ข้างบน==============
 
-class _loginScreenState extends State<loginScreen> {
+class _LoginScreenState extends State<LoginScreen> {
   String textResult = "resut";
   @override
   Widget build(BuildContext context) {
-    final TextEditingController textInputUsernameController = TextEditingController()..text="Nattawut_ja";
- final TextEditingController textInputPasswordController = TextEditingController()..text="aiap@123";
+    final TextEditingController textInputUsernameController =
+        TextEditingController()..text = "222-AIAP";
+    final TextEditingController textInputPasswordController =
+        TextEditingController()..text = "222-AIAP";
     return Scaffold(
-       // backgroundColor: Colors.red,
+        // backgroundColor: Colors.red,
         appBar: AppBar(
-          title: Text(
+          title: const Text(
             "Login Screen",
           ),
           // Here we take the value from the MyHomePage object that was created by
           // the App.build method, and use it to set our appbar title.
         ),
         body: Container(
-         // color: Colors.red,
+          // color: Colors.red,
           child: Column(
             children: [
               TextBox(
@@ -37,32 +42,40 @@ class _loginScreenState extends State<loginScreen> {
                 hintTxt: "Please input your username.",
               ),
 
-              TextBox(
-                textInput: textInputPasswordController,
-                lbTxt: "Password",
-                icon: Icons.lock,
-                hintTxt: "Please input your password...",
+              Expanded(
+                child: TextBox(
+                  textInput: textInputPasswordController,
+                  lbTxt: "Password",
+                  icon: Icons.lock,
+                  hintTxt: "Please input your password...",
+                ),
               ),
 
-              Text(
-                textResult,
-              ),
+              const Text(""
+                  // textResult,
+                  // ${globalAppData.name"}
+                  ),
 
-               Cbt(btTxt: "Login"  , username: textInputUsernameController.text),
+              Cbt(
+                  btTxt: "Login test",
+                  username: textInputUsernameController.text,
+                  password: textInputPasswordController.text),
 
-              ElevatedButton(
-                  onPressed: () {
-                    //  setState(() {
-                    //    textResult=textInput.text;
-                    //  });
+              // ElevatedButton(
+              //     onPressed: () {
 
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const MenuScreen()),
-                    );
-                  },
-                  child: const Text("Go to menu"))
+              //       //  setState(() {
+              //       //    textResult=textInput.text;
+              //       //  });
+
+              //       Navigator.push(
+              //         context,
+              //         MaterialPageRoute(
+              //             builder: (context) => const MainMenu()),
+              //       );
+              //     },
+              //     child: const Text("Go to menu"))
+
               // const Cbt(btTxt: "password"),
               //    const Cbt(btTxt: "forgot password")
             ],
@@ -75,24 +88,48 @@ class $textResult {}
 
 class Cbt extends StatelessWidget {
   final String btTxt;
-  final String username ;
-   Cbt({Key? key, this.btTxt = "" , this.username =""}) : super(key: key);
+  final String username;
+  final String password;
+  Cbt(
+      {Key? key,
+      this.btTxt = "",
+      required this.username,
+      required this.password})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     // ignore: sized_box_for_whitespace
+
+    print(username);
     return Container(
       width: 200,
       child: ElevatedButton(
-        onPressed: () {
-
-
-GlobalAppData globalAppData = GlobalAppData();
- globalAppData.userName = this.username ;
-//  Text('Global Data (Singleton), Name: ${globalAppData.name}'),
-
-
+        onPressed: () async {
+          //print(AuthenService.login());
+          // ignore: unrelated_type_equality_checks
+          if (await AuthenService.login(username, password) == true) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const MainMenuScreen()),
+            );
+          }
         },
+
+//         onPressed: () {
+//           print(username);
+
+// // GlobalAppData globalAppData = GlobalAppData();
+//           globalAppData.userName = username;
+
+//           print('title : ${globalAppData.userName}');
+// //  Text('Global Data (Singleton), Name: ${globalAppData.name}'),
+
+//           Navigator.push(
+//             context,
+//             MaterialPageRoute(builder: (context) => const MainMenu()),
+//           );
+//         },
         child: Text(btTxt),
         style: ElevatedButton.styleFrom(
           primary: Colors.blue, // background
@@ -132,3 +169,5 @@ class TextBox extends StatelessWidget {
     );
   }
 }
+
+
