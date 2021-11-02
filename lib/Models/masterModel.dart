@@ -4,7 +4,9 @@ import 'package:telework_v2/Models/TaskModel.dart';
 
 class MasterTask 
 {  
-final List<TaskModel> list =[];
+static final List<TaskModel> list =[];
+  
+ // TaskModel(workType: "Implement", workTask: "Project", workSubTask: "", id: id, type: type, timeStart: timeStart, timeEnd: timeEnd)];
 
 
   

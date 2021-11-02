@@ -94,8 +94,8 @@ class GridManu extends StatelessWidget {
           route: MyRoute.myTask,
         ),
         CardButton(
-          text: "Template",
-          route: MyRoute.template,
+          text: "Master template",
+          route: MyRoute.templateList,
         ),
         CardButton(
           text: "Master",

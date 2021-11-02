@@ -62,7 +62,8 @@ class _TemplateScreenState extends State<TemplateScreen> {
       body: ListView.builder(
         scrollDirection: Axis.vertical,
         itemCount: myTasklist.length,
-        itemBuilder: (BuildContext context, int index) {
+        itemBuilder: (BuildContext context, 
+        int index) {
           return TaskCard(myTask: myTasklist[index]);
 
           //  TaskCard(MyTaskScreen: MyTaskList.myList[index]);

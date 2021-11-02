@@ -3,29 +3,13 @@
 import 'package:flutter/material.dart';
 import 'package:telework_v2/Models/TaskModel.dart';
 import 'package:intl/intl.dart';
+import 'package:telework_v2/Models/masterModel.dart';
 import 'package:telework_v2/Operation.dart';
 import 'package:telework_v2/Screen/MyTask.dart';
 
 class TaskEditScreen extends StatefulWidget {
-  const TaskEditScreen({Key? key, required this.passData
+  const TaskEditScreen({Key? key, required this.passData}) : super(key: key);
 
-      //    required this.startTime,
-      //   required  this.endTime,
-      //   required  this.workType,
-      //   required  this.workTask,
-      //  required   this.workSubTask,
-      //   required  this.type,
-      //   required  this.id
-
-      })
-      : super(key: key);
-  // final TimeOfDay startTime;
-  // final TimeOfDay endTime;
-  // final String workType;
-  // final String workTask;
-  // final String workSubTask;
-  // final String type;
-  // final int id;
   final TaskModel passData;
 
   @override
@@ -35,38 +19,49 @@ class TaskEditScreen extends StatefulWidget {
 class _TaskEditScreenState extends State<TaskEditScreen> {
   String add = "";
   int indexx = 0;
-
   TimeOfDay selectedTime = TimeOfDay.now();
   TimeOfDay selectedTimeStart = TimeOfDay.now();
   TimeOfDay selectedTimeEnd = TimeOfDay.now();
-
   DateTime selectedDate = DateTime.now();
   DateTime selectedDateStart = DateTime.now();
   DateTime selectedDateEnd = DateTime.now();
-
   bool isAllDay = false;
-
   String workType = "";
   String workTask = "";
   String workSubTask = "";
-
   int id = 0;
   String type = "";
-
   String timeString = "";
-
-  // late TaskModel selectedTask = TaskModel(
-  //     workType: "workType",
-  //     workTask: "workTask",
-  //     workSubTask: "workSubTask",
-  //     id: 0,
-  //     type: "type",
-  //     timeStart: TimeOfDay.now(),
-  //     timeEnd: TimeOfDay.now());
 
   final TextEditingController textInputType = TextEditingController();
   final TextEditingController textInputTask = TextEditingController();
   final TextEditingController textInputSubtask = TextEditingController();
+
+  void mockUpMasterTaskList() {
+      MasterTask.list.clear();
+    for (int i = 0; i <= 10; i++) {
+    
+      MasterTask.list.add(TaskModel(
+          workType: "Project${i}",
+          workTask: "Implement${i}",
+          workSubTask: "Migrate Server${i}",
+          id: i,
+          type: "Plan",
+          timeStart: TimeOfDay.now(),
+          timeEnd: TimeOfDay.now()));
+    }
+  }
+
+  void updateTask() {
+    MyTaskList.myList.add(TaskModel(
+        workType: textInputType.text,
+        workTask: textInputTask.text,
+        workSubTask: textInputSubtask.text,
+        id: MyTaskList.myList.length,
+        timeEnd: selectedTimeEnd,
+        timeStart: selectedTimeStart,
+        type: type));
+  }
 
   @override
   void initState() {
@@ -82,6 +77,7 @@ class _TaskEditScreenState extends State<TaskEditScreen> {
 
   @override
   Widget build(BuildContext context) {
+    mockUpMasterTaskList(); // back to fix
     return Scaffold(
       appBar: AppBar(
         title: const Text("New event"),
@@ -89,14 +85,7 @@ class _TaskEditScreenState extends State<TaskEditScreen> {
           IconButton(
               onPressed: () {
                 setState(() {
-                  MyTaskList.myList.add(TaskModel(
-                      workType: textInputType.text,
-                      workTask: textInputTask.text,
-                      workSubTask: textInputSubtask.text,
-                      id: MyTaskList.myList.length,
-                      timeEnd: selectedTimeEnd,
-                      timeStart: selectedTimeStart,
-                      type: type));
+                  updateTask();
                 });
 
                 Operation.navigateScreenMyTask(context);
@@ -108,201 +97,162 @@ class _TaskEditScreenState extends State<TaskEditScreen> {
         children: [
           Column(
             children: <Widget>[
-              //===========================input type====================
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Container(
-                    height: 30,
-                    child: TaskInputWidget(
+              //=========================== type====================
+              TaskInputWidget(
                       textInput: textInputType,
                       labelString: "Type",
-                    )),
-              ),
-              //===========================input type====================
-
-              //===========================input type====================
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Container(
-                    height: 30,
-                    //width: 50,
-                    child: TaskInputWidget(
+                    )
+              
+              //===========================Task ====================
+            , TaskInputWidget(
                       textInput: textInputTask,
                       labelString: "Task",
-                    )),
+                    
               ),
-              //===========================input type====================
 
-              //===========================input type====================
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Container(
-                    height: 30,
-                    child: TaskInputWidget(
+              //===========================sub Task====================
+              TaskInputWidget(
                       textInput: textInputSubtask,
                       labelString: "Sub task",
-                    )),
-              ),
-              //===========================input type====================
+                    )
+                    
+              ,//=========================input type====================
 
               const Divider(color: Colors.black),
 
               //=========================  block  select time =========================
-              Row(
-                children: [
-                  //================================  icon clock =======================
-                  Container(
-                    child: Align(
-                        alignment: Alignment.topCenter,
-                        child: const Icon(Icons.access_alarm)),
-                    width: 60,
-                  ),
+              Container(
+                child: Row(
+                  children: [
+                    //================================  icon clock =======================
+                    Container(
+                      child: Align(
+                          alignment: Alignment.topCenter,
+                          child: const Icon(Icons.access_alarm)),
+                      width: 60,
+                    ),
 
-                  //================================  icon clock =======================
+                    //================================  block time  =======================
 
-                  //========================  block  All day =====================================================
-                  Container(
-                      width: 320,
-                      child: Column(
-                        children: [
-                          Container(
-                            height: 30,
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  child: Container(
-                                    child: Text("All Day"),
-                                    // color: Colors.pink,
+                
+                    Container(
+                        width: 320,
+                        child: Column(
+                          children: [
+
+                           //========================  block  All day =====================================================
+                            // Container(
+                            //   height: 30,
+                            //   child: Row(
+                            //     children: [
+                            //       Expanded(
+                            //         child: Container(
+                            //           child: Text("All Day"),
+                            //           // color: Colors.pink,
+                            //         ),
+                            //       ),
+                            //       Container(
+                            //         child:
+                            //             //Text("check"),
+
+                            //             Switch(
+                            //           //trackColor:Colors.blue,
+
+                            //           value: isAllDay,
+                            //           onChanged: (value) {
+                            //             setState(() {
+                            //               isAllDay = value;
+                            //               print(isAllDay);
+                            //             });
+                            //           },
+                            //           activeTrackColor: Colors.blue[200],
+                            //           activeColor: Colors.blue,
+                            //         ),
+
+                            //         //color: Colors.blue,
+                            //       ),
+                            //     ],
+                            //   ),
+                            // ),
+                            // const Divider(color: Colors.black),
+                            //========================  block  All day =====================================================
+
+                            //========================  block  Start =====================================================
+                            Container(
+                              height: 30,
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    child: Container(
+                                      child: InkWell(
+                                        onTap: () {
+                                          _selectDate(context, "start");
+                                          // Navigator.pushNamed(context, "write your route");โ
+                                        },
+                                        child: new Text(DateFormat('yyyy-MM-dd')
+                                            .format(selectedDateStart)),
+                                      ),
+                                      // color: Colors.pink,
+                                    ),
                                   ),
-                                ),
-                                Container(
-                                  child:
-                                      //Text("check"),
+                                  Container(
+                                    child:
+                                        //Text("5:00 PM"),
 
-                                      Switch(
-                                    //trackColor:Colors.blue,
-
-                                    value: isAllDay,
-                                    onChanged: (value) {
-                                      setState(() {
-                                        isAllDay = value;
-                                        print(isAllDay);
-                                      });
-                                    },
-                                    activeTrackColor: Colors.blue[200],
-                                    activeColor: Colors.blue,
+                                        InkWell(
+                                      onTap: () {
+                                        _selectTime(context, "start");
+                                        // Navigator.pushNamed(context, "write your route");โ
+                                      },
+                                      child: new Text(
+                                          formatTimeOfDay(selectedTimeStart)),
+                                    ),
                                   ),
-
-                                  //color: Colors.blue,
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
-                          ),
-                          const Divider(color: Colors.black),
-                          //========================  block  All day =====================================================
+                            const Divider(color: Colors.black),
+                            //========================  block  Start =====================================================
 
-                          //========================  block  Start =====================================================
-                          Container(
-                            height: 30,
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  child: Container(
+                            //========================  block  end =====================================================
+                            Container(
+                              height: 30,
+                              child: Row(
+                                children: [
+                                  Expanded(
                                     child: InkWell(
                                       onTap: () {
-                                        _selectDate(context, "start");
+                                        _selectDate(context, "end");
                                         // Navigator.pushNamed(context, "write your route");โ
                                       },
                                       child: new Text(DateFormat('yyyy-MM-dd')
-                                          .format(selectedDateStart)),
+                                          .format(selectedDateEnd)),
                                     ),
-                                    // color: Colors.pink,
                                   ),
-                                ),
-                                Container(
-                                  child:
-                                      //Text("5:00 PM"),
-
-                                      InkWell(
-                                    onTap: () {
-                                      _selectTime(context, "start");
-                                      // Navigator.pushNamed(context, "write your route");โ
-                                    },
-                                    child: new Text(
-                                        formatTimeOfDay(selectedTimeStart)),
+                                  Container(
+                                    child: InkWell(
+                                      onTap: () {
+                                        _selectTime(context, "end");
+                                        // Navigator.pushNamed(context, "write your route");โ
+                                      },
+                                      child: new Text(
+                                          formatTimeOfDay(selectedTimeEnd)),
+                                    ),
+                                    //color: Colors.blue,
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
-                          ),
-                          const Divider(color: Colors.black),
-                          //========================  block  Start =====================================================
-
-                          //========================  block  end =====================================================
-                          Container(
-                            height: 30,
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  child: InkWell(
-                                    onTap: () {
-                                      _selectDate(context, "end");
-                                      // Navigator.pushNamed(context, "write your route");โ
-                                    },
-                                    child: new Text(DateFormat('yyyy-MM-dd')
-                                        .format(selectedDateEnd)),
-                                  ),
-                                ),
-                                Container(
-                                  child: InkWell(
-                                    onTap: () {
-                                      _selectTime(context, "end");
-                                      // Navigator.pushNamed(context, "write your route");โ
-                                    },
-                                    child: new Text(
-                                        formatTimeOfDay(selectedTimeEnd)),
-                                  ),
-                                  //color: Colors.blue,
-                                ),
-                              ],
-                            ),
-                          ),
-                          const Divider(color: Colors.black),
-                          //========================  block  end =====================================================
-                        ],
-                      )),
-                ],
+                            const Divider(color: Colors.black),
+                            //========================  block  end =====================================================
+                          ],
+                        )),
+                  ],
+                ),
               ),
 
-              //===========================  master task list ===========================================================
-              // Container(
-              //     height: 200,
-              //     color: Colors.red,
-              //     child: ListView(
-              //       children: [
-              //         Container(
-              //             color: Colors.yellow,
-              //             child: Container(
-              //                 height: 100, //width: 100,
-              //                 child: InkWell(
-              //                   child: Card(
-              //                     child: Text("Migrate server"),
-              //                   ),
-              //                   onTap: () {
-              //                     textInputType.text = "Implement";
-              //                     textInputTask.text = "Project";
-              //                     textInputSubtask.text = "Migrate server";
-              //                   },
-              //                 )))
-              //       ],
-              //     )
-
-              //     )
-
-              //===========================  master task list ===========================================================
-
               Container(
-                color: Colors.red,
+                //color: Colors.red,
                 height: 300,
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -310,44 +260,10 @@ class _TaskEditScreenState extends State<TaskEditScreen> {
                       gridDelegate:
                           const SliverGridDelegateWithFixedCrossAxisCount(
                               crossAxisCount: 3),
-
-                      //const SliverGridDelegateWithMaxCrossAxisExtent(
-
-                      //     maxCrossAxisExtent: 200,
-                      //     childAspectRatio: 3/2 ,
-                      //     crossAxisSpacing: 20,
-                      //     mainAxisSpacing: 20),
-                      itemCount: _listMasterTask.length,
+                      itemCount: MasterTask.list.length,
                       itemBuilder: (BuildContext ctx, index) {
-                        return Container(
-                          alignment: Alignment.center,
-                          child: Card(
-                            child: Column(
-                              children: [
-                                const Image(
-                                  fit: BoxFit.fill,
-                                  height: 80,
-                                  width: double.infinity,
-                                  image: AssetImage("assets/images/1.PNG"),
-                                ),
-                                Text(
-                                  _listMasterTask[index].workSubTask,
-                                  style: TextStyle(
-                                      color: Colors.black, fontSize: 14),
-                                ),
-                                Text(
-                                  _listMasterTask[index].workType,
-                                  style: TextStyle(
-                                      color: Colors.black54, fontSize: 12),
-                                )
-                              ],
-                            ),
-                          ),
-                          //Text(_listMasterTask[index].workSubTask),
-                          decoration: BoxDecoration(
-                              color: Colors.amber,
-                              borderRadius: BorderRadius.circular(15)),
-                        );
+                        return CardMasterTask(
+                            myTaskMaster: MasterTask.list[index]);
                       }),
                 ),
               )
@@ -422,6 +338,45 @@ class _TaskEditScreenState extends State<TaskEditScreen> {
   }
 }
 
+class CardMasterTask extends StatelessWidget {
+  const CardMasterTask({Key? key, required this.myTaskMaster})
+      : super(key: key);
+  final TaskModel myTaskMaster;
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      alignment: Alignment.center,
+      child: Card(
+        child: Column(
+          children: [
+            const Image(
+              fit: BoxFit.fill,
+              height: 80,
+              width: double.infinity,
+              image: AssetImage("assets/images/1.PNG"),
+            ),
+            Text(
+              myTaskMaster.workType,
+              style: TextStyle(color: Colors.black, fontSize: 14),
+            ),
+            Text(
+              myTaskMaster.workTask,
+              style: TextStyle(color: Colors.black54, fontSize: 12),
+            ),
+            Text(
+              myTaskMaster.workSubTask,
+              style: TextStyle(color: Colors.black54, fontSize: 12),
+            )
+          ],
+        ),
+      ),
+      //Text(_listMasterTask[index].workSubTask),
+      decoration: BoxDecoration(
+          color: Colors.amber, borderRadius: BorderRadius.circular(15)),
+    );
+  }
+}
+
 class TaskInputWidget extends StatelessWidget {
   const TaskInputWidget(
       {Key? key, required this.labelString, required this.textInput})
@@ -430,15 +385,20 @@ class TaskInputWidget extends StatelessWidget {
   final TextEditingController textInput;
   @override
   Widget build(BuildContext context) {
-    return TextField(
-      controller: textInput,
-      style: TextStyle(
-          fontSize: 14,
-          //  height: 2.0,
-          color: Colors.black),
-      decoration:
-          InputDecoration(labelText: labelString, icon: Icon(Icons.edit)),
-    );
+    return Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Container(
+          height: 30,
+          child: TextField(
+            controller: textInput,
+            style: TextStyle(
+                fontSize: 14,
+                //  height: 2.0,
+                color: Colors.black),
+            decoration:
+                InputDecoration(labelText: labelString, icon: Icon(Icons.edit)),
+          ),
+        ));
   }
 }
 

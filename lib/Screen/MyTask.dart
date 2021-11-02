@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:telework_v2/Class/Util.dart';
+import 'package:telework_v2/Class/route.dart';
 import 'package:telework_v2/Models/TaskModel.dart';
 import 'package:telework_v2/Operation.dart';
 import '../singletons/GlobalAppData.dart';
@@ -25,7 +26,7 @@ class _MyTaskScreenState extends State<MyTaskScreen> {
         title: Text('title : ${globalAppData.userName}'),
         actions: [
           IconButton(
-            icon: Icon(Icons.add),
+            icon: Icon(Icons.pages),
             onPressed: () {
 //==================================  on press ================
               Operation.navigateScreenTaskEdit(
@@ -54,7 +55,15 @@ class _MyTaskScreenState extends State<MyTaskScreen> {
 //==================================  on press ================
             },
           ),
+          IconButton(
+            icon: const Icon(Icons.bookmark),
+            onPressed: () {
+//==================================  on press ================
 
+          Navigator.pushNamed(context, MyRoute.templateList);
+//==================================  on press ================
+            },
+          ),
 //                IconButton(
 //               icon: Icon(Icons.refresh),
 //               onPressed: () {
@@ -104,7 +113,7 @@ class TaskWidget extends StatelessWidget {
         onTap: () {
           // _MyTaskScreenState editStat  =new _MyTaskScreenState();
 
-         // Operation.navigateScreenTaskEdit(context, MyTaskScreen);
+          // Operation.navigateScreenTaskEdit(context, MyTaskScreen);
         },
         child: Card(
           color: Colors.blue[100],

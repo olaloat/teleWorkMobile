@@ -1,6 +1,7 @@
 // ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
+import 'package:telework_v2/Models/TaskModel.dart';
 
 class TemplateList {
   static final List<AtributeTemplate> myList = [
@@ -23,10 +24,12 @@ class MasterTemplate {
   final String templateName;
   final int id;
   final String detail;
+  final List<TaskModel> taskList ;// =[];
   // ignore: non_constant_identifier_names
   MasterTemplate({
     required this.templateName,
     required this.id,
+    this.taskList =const [],
     this.detail = "",
     Key? Key,
   });
